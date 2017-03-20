@@ -5,8 +5,8 @@
 + [ ] Objective-C
 	+ [X] 基本语法
 	+ [X] 面向对象
-	+ [ ] 内存管理
-	+ [ ] Category、Peotocol、Block
+	+ [X] 内存管理
+	+ [X] Category、Protocol、Block
 	+ [ ] Copy、KVC/KVO
 	+ [ ] Foundation框架
 + [ ] Swift 3.0 语言基础
@@ -142,7 +142,39 @@ People *p1 = [[People alloc] init];
 	}
 @end
 ```
-	
+
++ 内存管理：系统不会自动释放堆中的内存
+	+  引用计数器：在Objective-C中每个对象内部都有一个与之对应的整数，叫做“引用计数器”。当一个对象在创建之后它的引用计数器为1，当调用这个对象的`alloc、retain、new、copy`方法之后引用计数器自动在原来的基础上`加1`，当调用这个对象的`release`方法之后它的引用计数器`减1`。如果一个对象的引用计数器为`0`，则系统会自动调用这个对象的`dealloc`方法来销毁这个对象
+	+  属性参数：`@property`——快速实现getter、setter方法
+		+  MRC默认参数：`(atomic,readwrite,assign)`
+		+ ARC默认参数：`基本数据默认属性参数：(atomic,readwrite,assign)，对象类型默认属性参数：(atomic,readwrite,strong)`
+	![img](./images/property_details.png)
+	+  自动释放池：`@autoreleasepool`
+		+ autorelease方法不会改变对象的引用计数器，只是将这个对象放到自动释放池中
+		+ 自动释放池实质是当自动释放池销毁后调用对象的release方法（不能保证一定将该对象释放）
+		+ 由于自动释放池最后统一销毁对象，因此如果一个操作比较占用内存，最好不要放倒自动释放池或者考虑放倒多个自动释放池
+		+ Objective-C中类库中的静态方法一般都不需要手动释放，内部已经调用了autorelease方法  
+	+  内存释放原则：`谁创建，谁释放`
++ 野指针：指向一个被释放对象的指针变量[`需要将该变量设置为nil`]
+	+ 表现为：`Thread 1:EXC_BAD_ACCESS(code=EXC_I386_GPFLT)`错误 
+
++ 内存管理的两种方式
+	+ MRC（手动引用计数）：
+		+ assign：用于基本数据类型
+		+ retain：用于非字符串对象
+		+ copy：用于字符串对象、block、NSArray、NSDictionary
+	+ ARC（自动引用计数）：
+	   + strong：会引起引用计数加1.是指针拷贝（浅拷贝），不会拷贝内容
+	   + weak：当所指对象被销毁时，指针会自动被设置为nil，防止野指针
+	   + copy：先copy一个相同对象。再创建一个strong指针。（深拷贝，会拷贝内容）
+	   + unsafe_unretained：（不安全引用）用于基本数据类型  
++ `#pragma mark -`：以#pragma开头的代码是一条编译器指令。是一个特定于程序或编译器的指令。该指令告诉Xcode编译器，要在编辑窗格顶部的方法和函数弹出菜单中将代码分隔开
+
++ Block：也是一种类型
+	+ 类型定义：`返回值类型(^ 变量名)(参数列表)`
+	+ typedef定义：`返回值类型(^ 变量名)(参数列表)`
+	+ 实现：`^(参数列表){操作主体}`
+	+ Block中可以读取块外面定义的变量但是不能修改，如果要修改这个变量则必须声明`_block`修饰
 ### Swift
 
 ### iOS
