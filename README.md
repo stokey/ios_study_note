@@ -111,9 +111,38 @@ People *p1 = [[People alloc] init];
 
 + OC方法没有访问修饰符，如果父类中的方法没有在.h文件中写声明则子类不能集成该方法
 + OC没有多继承，protocol与Java 接口类似
+
+```objective-c
+// 实现协议方式
+@protocol Printable <NSObject> // 协议继承别的协议
+@optional // 一个类implements该协议时，可以不实现此方法
+	- (void) print:(NSString *) str;
+@end 
+
+// 协议的实现
+@interface class MyClass : NSObject<Printable,Drawable>
+@end
+```
 + OC的多态
 	+ 继承
 	+ 方法重写 
+	+ Protocol
++ Catrgory(分类)：给一个已经存在的类增加方法，而不用去改变它的源码
+
+```objective-c
+// .h 文件 NSObject+Json.h：给NSOject类增加toJson方法
+@interface NSObject (Json)
+	-（NSString *）toJson;
+@end
+
+// .m 文件
+@implementation NSObject (Json)
+	- (NSString) toJson{
+		// ...
+	}
+@end
+```
+	
 ### Swift
 
 ### iOS
