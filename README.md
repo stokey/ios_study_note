@@ -8,7 +8,7 @@
 	+ [X] 内存管理
 	+ [X] Category、Protocol、Block
 	+ [X] Copy、KVC/KVO
-	+ [ ] Foundation框架
+	+ [X] Foundation框架
 + [ ] Swift 3.0 语言基础
 + [ ] iOS
 	+ [ ] iOS控件使用
@@ -195,7 +195,29 @@ People *p1 = [[People alloc] init];
 			+ copy：遵守`NSCopying`协议的类才可以发送`copy`消息[`只有NSString到NSString的拷贝是浅拷贝，其他的都是深拷贝`]
 			+ mutableCopy：守`NSMutableCopying`协议的类才可以发送`mutableCopy`消息[`深拷贝`] 
 		+ retain：创建一个指针，引用对象计数加一[`浅拷贝`]
-	 
++ 文件操作：在Objective-C中路径、文件读写等操作是利用字符串来完成的
+
+```objective-c
+// 读取文件
+NSString *path = @"/Users/Stokey/Desktop/test.txt";
+NSString *outInfo =  [NSString stringWithContentsOfFile:path encoding:NSUTF8StringEncoding error:nil];  
+
+// 写入文件
+NSError * error;
+NSString *inputInfo =@"hello objective-c";
+[inputInfo writeToFile:path atomically:YES encoding:NSUTF8StringEncoding error:&error];
+if (error) {
+	NSLog(@"write file fail, the error is %@", [error localizedDescription]);
+} else {
+	NSLog(@"write file success !");
+}
+```	
+
++ NSArray
+	+ NSArray中只能存放对象，不能存放基本数据类型，通常通过在基本数据类型前加@进行转换
+	+ 数组中的元素后面必须加nil以表示数据结束
+	+ `makeObjectsPerformSelector`执行数组中对象的方法，其参数最多只能有一个
+ 
 ### Swift
 
 ### iOS
@@ -205,6 +227,7 @@ People *p1 = [[People alloc] init];
 
 + Cocoa Touch：`基于iPhone OS应用层直接调用层，如触摸事件、相机管理等`
 	+ UIKit
+![img](./images/uikit_map.jpg)
 	+ MapKit
 	+ Multi-Touch Events
 	+ Core Motion
