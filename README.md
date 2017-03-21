@@ -7,7 +7,7 @@
 	+ [X] 面向对象
 	+ [X] 内存管理
 	+ [X] Category、Protocol、Block
-	+ [ ] Copy、KVC/KVO
+	+ [X] Copy、KVC/KVO
 	+ [ ] Foundation框架
 + [ ] Swift 3.0 语言基础
 + [ ] iOS
@@ -175,6 +175,27 @@ People *p1 = [[People alloc] init];
 	+ typedef定义：`返回值类型(^ 变量名)(参数列表)`
 	+ 实现：`^(参数列表){操作主体}`
 	+ Block中可以读取块外面定义的变量但是不能修改，如果要修改这个变量则必须声明`_block`修饰
+
++ Objective-C动态机制
+	+ KVC（`键值编码`）：不进行任何操作就可以进行属性的动态读写（由`NSKeyValueCoding`协议提供，NSObject实现了该协议）
+		+ 动态设置：`setValue:属性值 forKey:属性名`——用于简单路径、`setValue:属性值 forKeyPath:属性路径`——用于复合路径（`对象里面的对象`）
+		+ 动态读取 ：`valueForKey:属性名`、`valueForKeyPath:属性名`——用于复合路径
+	+ KVO（`键值监听`）：一种观察者模式，用于实现视图组件和数据模型的分离（由`NSKeyValueObServing`协议提供，NSObject已经实现了该协议）
+		+ 使用方式
+			+ 通过`addObserver: forKeyPath: options: context:`注册监听器
+			+ 重写监听器的`observerValueForKeyPath: ofObject: change: context:`方法
+		+ 常用操作   
+			+ 注册指定Key路径的监听器：`addObserver: forKeyPath: options: context:`
+			+ 删除指定Key路径的监听器：`removeObserver: forKeyPath`、`removeObserver: forKeyPath: context:`
+			+ 回调监听 ：`observeValueForKeyPath: ofObject: change: context:`
+
++ Copy
+	+ copy/retain区别
+		+ copy：创建一个新对象
+			+ copy：遵守`NSCopying`协议的类才可以发送`copy`消息[`只有NSString到NSString的拷贝是浅拷贝，其他的都是深拷贝`]
+			+ mutableCopy：守`NSMutableCopying`协议的类才可以发送`mutableCopy`消息[`深拷贝`] 
+		+ retain：创建一个指针，引用对象计数加一[`浅拷贝`]
+	 
 ### Swift
 
 ### iOS
