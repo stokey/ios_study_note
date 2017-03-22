@@ -11,10 +11,10 @@
 	+ [X] Foundation框架
 + [ ] Swift 3.0 语言基础
 + [ ] iOS
-	+ [ ] iOS控件使用
-		+ [ ] StoryBoard
-		+ [ ] Xib文件
-		+ [ ] 纯代码方式
+	+ [X] iOS控件使用
+		+ [X] StoryBoard
+		+ [X] Xib文件
+		+ [X] 纯代码方式
 	+ [ ] 多线程编程
 		+ [ ] NSThread
 		+ [ ] NSOperationQueue
