@@ -12,20 +12,22 @@
 + [ ] Swift 3.0 语言基础
 + [ ] iOS
 	+ [X] iOS控件使用
-		+ [X] StoryBoard
-		+ [X] Xib文件
-		+ [X] 纯代码方式
+		+ [X] StoryBoard／Xib文件／纯代码方式
+		+ [ ] UIButton/UILabel/UITable/UINavigator/UIImageView
 	+ [ ] 多线程编程
 		+ [ ] NSThread
 		+ [ ] NSOperationQueue
 		+ [ ] GCD 
 	+ [ ] 网络编程
-		+ [ ] NSURLConnection
+		+ [X] NSURLConnection
 		+ [ ] AFNetworking
 		+ [ ] CFNetwork 
+	+ [ ] 文件操作
+		+ [X] NSString读写文件
+		+ [X] NSFileManager 
+	+ [ ] 数据库操作
 	+ [ ] QuartzCore框架 
 	+ [ ] 自定义View
-	+ [ ] 数据库操作
 	+ [ ] iOS多媒体
 	+ [ ] iOS系统服务  
 

@@ -100,3 +100,29 @@ UIImage *imagePng = [UIImage imageWithData:data];
 + __bridge：用于Objective-C和Core Foundation指针之间的转换。这种转换不会更换对象的所有权
 + __bridge+transfer/CFBridgeRelease：将非Objective-C指针转换为Objective-C指针。对象所有权会交给ARC
 + __bridge+retained/CFBridgeRetain：用于从Objective-C到Core Foundation的指针转换，并且会将对象的所有权（ownership）转移，所以你需要在不再使用该对象的时候调用CFRelease方法来解除引用
+
++ iOS数据解析
+	+ JSON
+		+ TouchJson
+		+ JSONKit
+		+ SBJson
+		+ iOS JSON库[iOS5+]
+			+ NSJSONSerialization
+			+ JSONObjectWithData: options: error:
+					
+		```objective-c
+		NSString *jsonStr = @"{\"name\":\"James\",\"age\":\"30\"}";
+		NSData *jsonData = [jsonStr dataUsingEncoding:NSUTF*StringEncoding];
+		id jsonObj = [NSJSONSerialization JSONObjectWithData:jsonData options:NSJSONReadingAllowFragments error:nil];
+		if ([jsonObj isKindOfClass:[NSDictionary class]]){
+			// 字典类型	
+		} else if ([jsonObj isKindOfClass:[NSArray class]]{
+			// 数组类型
+		}
+		```  
+		 
+	+ XML
+		+ SAX
+		+ DOM
+		+ PULL  
++ Objective-C `isa` 
