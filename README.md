@@ -227,6 +227,13 @@ if (error) {
 	+ NSArray中只能存放对象，不能存放基本数据类型，通常通过在基本数据类型前加@进行转换
 	+ 数组中的元素后面必须加nil以表示数据结束
 	+ `makeObjectsPerformSelector`执行数组中对象的方法，其参数最多只能有一个
++ 多线程
+	+ pThread：基于C语言框架，不常用
+		+ pthread_create 
+	+ NSThread
+		+  
+	+ GCD
+	+ NSOperation  
  
  + frame/bounds区别
  	+ frame：`相对于父视图中的坐标位置和大小`
