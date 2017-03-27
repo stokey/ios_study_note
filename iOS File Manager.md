@@ -58,3 +58,6 @@ NSString *tmpPath = NSTemporaryDirectory();
 	```objective-c
 	NSData *data = UIImagePNGRepresentation (image);
 	```
++ NSFileManager/NSFileHandle
+	+ NSFileManager：主要对文件进行创建、删除等操作
+	+ NSFileHandle：主要对文件内容进行读取和写入操作[`对文件进行内容的追加`]  	

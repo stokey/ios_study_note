@@ -13,7 +13,7 @@
 + [ ] iOS
 	+ [X] iOS控件使用
 		+ [X] StoryBoard／Xib文件／纯代码方式
-		+ [ ] UIButton/UILabel/UITable/UINavigator/UIImageView
+		+ [X] UIButton/UILabel/UITable/UINavigator/UIImageView
 	+ [ ] 多线程编程
 		+ [ ] NSThread
 		+ [ ] NSOperationQueue
@@ -22,14 +22,22 @@
 		+ [X] NSURLConnection
 		+ [ ] AFNetworking
 		+ [ ] CFNetwork 
-	+ [ ] 文件操作
+	+ [X] 文件操作
 		+ [X] NSString读写文件
 		+ [X] NSFileManager 
 	+ [ ] 数据库操作
 	+ [ ] QuartzCore框架 
 	+ [ ] 自定义View
 	+ [ ] iOS多媒体
-	+ [ ] iOS系统服务  
+	+ [ ] iOS系统服务
+	+ [ ] iOS App之间数据传递
+		+ [ ] UIDocumentInteractionController
+		+ [ ] UIActivityViewController
+		+ [ ] Shared Keychain Access
+		+ [ ] Custom URL Scheme
+		+ [ ] Web Service
+		+ [ ] iCloud API 
+		+ [ ] UIPasteboard   
 
 ## 笔记
 ### Objective-C
@@ -219,6 +227,11 @@ if (error) {
 	+ NSArray中只能存放对象，不能存放基本数据类型，通常通过在基本数据类型前加@进行转换
 	+ 数组中的元素后面必须加nil以表示数据结束
 	+ `makeObjectsPerformSelector`执行数组中对象的方法，其参数最多只能有一个
+ 
+ + frame/bounds区别
+ 	+ frame：`相对于父视图中的坐标位置和大小`
+ 	+ bounds：`相对于View本身的坐标系统`
+ 	+ center：`相对于父视图中的位置和大小` 
  
 ### Swift
 
