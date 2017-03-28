@@ -14,12 +14,14 @@
 	+ [X] iOS控件使用
 		+ [X] StoryBoard／Xib文件／纯代码方式
 		+ [X] UIButton/UILabel/UITable/UINavigator/UIImageView
-	+ [ ] 多线程编程
-		+ [ ] NSThread
-		+ [ ] NSOperationQueue
-		+ [ ] GCD 
+	+ [X] 多线程编程
+		+ [X] pThread  
+		+ [X] NSThread
+		+ [X] NSOperation
+		+ [X] GCD 
 	+ [ ] 网络编程
 		+ [X] NSURLConnection
+		+ [ ] NSURLSession
 		+ [ ] AFNetworking
 		+ [ ] CFNetwork 
 	+ [X] 文件操作
@@ -231,9 +233,53 @@ if (error) {
 	+ pThread：基于C语言框架，不常用
 		+ pthread_create 
 	+ NSThread
-		+  
+		+ 创建线程
+			+ [[NSThread alloc] initWithTarget: selector: object:]
+			+ [NSThread detachNewThreadSelector: toTarget: withObject:]
+			+ [self performSelectorInBackground: withObject:]
+		+ 线程同步
+			+ @synchronized(self){}
+			+ [NSCondition lock] / [NSCondition unlock]
 	+ GCD
+		+ 创建线程
+			+ `dispath_async(dispatch_queue_t , ^{})`
+			+ `dispath_async(dispatch_get_main_queue(), ^{})//主线程`
+			+ `dispatch_async(dispatch_get_global_queue(),^{})//创建子线程`
+		+ 创建线程任务队列
+			+ 创建并发线程队列
+
+			```objective-c
+			dispatch_queue_t queue = dispatch_queue_create("key.queue", DISPATCH_QUEUE_CONCURRENT );
+			dispatch_async(queue, ^{}) ;//或创建多个线程，线程并发执行 
+			```
+			
+			+ 创建线程任务队列
+		
+			```objective-c
+			dispatch_queue_t queue = dispatch_queue_create("key.queue", DISPATCH_QUEUE_SERIAL);
+			dispatch_async(queue, ^{}) ;//只创建一个线程，但是改线程当中有多个任务 
+		```
+		
+		+ dispatch_group
+			+  dispatch_group_async
+			+  dispatch_group_enter/dispatch_group_leave
+		+ 单例模式：`dispath_once(dispatch_once_t,^{})`
+		+ 延迟执行：`dispatch_after(dispatch_time(DISPATCH_TIME_NOW),(int64_t)(2*NSEC_PER_SEC)), dispatch_get_main_queue(), ^{})`  
+		   
 	+ NSOperation  
+		+ NSOperationQueue：线程池，用于管理NSOperation
+			+ addOperation
+			+ setMaxConcurrentOperationCount
+		+ 状态
+			+  ready
+			+  cancelled
+			+  executing
+			+  finisshed
+			+  asynchronous
+		+ 依赖：`addDependency`
+		+ 具体实现
+			+ NSInvocationOperation/NSBlockOperation：同步方法
+			+ NSOperationQueue：异步方法   
  
  + frame/bounds区别
  	+ frame：`相对于父视图中的坐标位置和大小`
