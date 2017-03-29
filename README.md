@@ -2,7 +2,7 @@
 
 ## 目标
 
-+ [ ] Objective-C
++ [X] Objective-C
 	+ [X] 基本语法
 	+ [X] 面向对象
 	+ [X] 内存管理
