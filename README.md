@@ -27,7 +27,8 @@
 	+ [X] 文件操作
 		+ [X] NSString读写文件
 		+ [X] NSFileManager 
-	+ [ ] 数据库操作
+	+ [X] 数据库操作
+	+ [X] ViewController之间的数据传递
 	+ [ ] QuartzCore框架 
 	+ [ ] 自定义View
 	+ [ ] iOS多媒体
@@ -45,7 +46,7 @@
 ### Objective-C
 
 + 头文件／实现文件（.h/.m)
-+ +／-方法（类方法——静态方法／普通方法——对象方法申明）
++ +／-方法（类方法——静态方法／普通方法——对象方法声明）
 + @"string"：OC字符串——NSString
 + goto：高级跳转语句[*慎用*]
 
@@ -57,7 +58,7 @@ print: {
 }	
 if (i < 5) goto print;
 ``` 
-+ switch条件只能放置`数值类型`或者`字符类型`不能放字符串【`Java 7能放置`】
++ switch条件只能放置`数值类型`或者`字符类型`不能放`字符串`【`Java 7能放置`】
 + 实例化对象
 
 ```objective-c
@@ -135,6 +136,7 @@ People *p1 = [[People alloc] init];
 @interface class MyClass : NSObject<Printable,Drawable>
 @end
 ```
+
 + OC的多态
 	+ 继承
 	+ 方法重写 
@@ -164,7 +166,7 @@ People *p1 = [[People alloc] init];
 	+  自动释放池：`@autoreleasepool`
 		+ autorelease方法不会改变对象的引用计数器，只是将这个对象放到自动释放池中
 		+ 自动释放池实质是当自动释放池销毁后调用对象的release方法（不能保证一定将该对象释放）
-		+ 由于自动释放池最后统一销毁对象，因此如果一个操作比较占用内存，最好不要放倒自动释放池或者考虑放倒多个自动释放池
+		+ 由于自动释放池最后统一销毁对象，因此如果一个操作比较占用内存，最好不要放倒自动释放池或者考虑放到多个自动释放池
 		+ Objective-C中类库中的静态方法一般都不需要手动释放，内部已经调用了autorelease方法  
 	+  内存释放原则：`谁创建，谁释放`
 + 野指针：指向一个被释放对象的指针变量[`需要将该变量设置为nil`]
@@ -187,6 +189,8 @@ People *p1 = [[People alloc] init];
 	+ typedef定义：`返回值类型(^ 变量名)(参数列表)`
 	+ 实现：`^(参数列表){操作主体}`
 	+ Block中可以读取块外面定义的变量但是不能修改，如果要修改这个变量则必须声明`_block`修饰
+
++ 定义宏：`#define PI 3.1415926 `  [`Java全局变量`]
 
 + Objective-C动态机制
 	+ KVC（`键值编码`）：不进行任何操作就可以进行属性的动态读写（由`NSKeyValueCoding`协议提供，NSObject实现了该协议）
@@ -285,7 +289,49 @@ if (error) {
  	+ frame：`相对于父视图中的坐标位置和大小`
  	+ bounds：`相对于View本身的坐标系统`
  	+ center：`相对于父视图中的位置和大小` 
- 
+
+ + 	ViewController之间的数据传递
+ 	+ A -> B (`父视图——>子视图`)
+ 		+  在Storyboard上面连接视图控制器A和控制器B，点击连线。在属性设置窗口设置`segueidentifier`——`MainToCheck`
+ 		+  在 B ViewController的.h文件中定义属性 _showArray用于接收属性
+ 		
+	 		```objective-c
+	 		@property (string,nonatomic) NSArray *showArray;
+	 		```
+		+  在 A ViewController.m文件中设置`-(void) prepareForSegue:(UIStoryboardSegue *) segue sender:(id) sender方法`
+		
+			```objective-c
+			-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{  
+				if ([[segue identifier] isEqualToString:@"MainToCheck"]) {  
+					CheckViewController *CheckVC = [segue destinationViewController];  
+					CheckVC.showArray = [[NSArray alloc] initWithArray:_currentArray];  
+				}  
+			}  
+			```
+ 	+ B -> A  (`子视图——>父视图`)：让A成为B的代理，在B中调用A的代理方法，通过代理方法的参数传递数据给A
+ 		+ 在B .h文件中添加协议(`#import和#interface之间`)，并添加delegate属性
+ 		
+	 		```objective-c
+	 		@class LoadViewController;
+	 		@protocol CheckViewDelegate <NSObject>
+	 		-(void) LoadDataViewController:(CheckViewController *) controller didFinishLoadData:(NSMutableArray *) loadedArray; 
+	 		@property (nonatomic, weak) id <LoadViewDelegate> delegate;
+	 		@end
+ 			``` 
+ 		+ 在B ViewController.m中调用代理方法，将数据通过代理方法传递给其代理
+ 		
+	 		```objective-c
+	 		[self.delegate LoadDataViewController: self didFinishLoadData: testArray];
+	 		```
+	 		
+ 		+ 在A ViewController.m文件中实现B的代理方法
+ 		
+ 			```objective-c
+ 			-(void)LoadDataViewController:(CheckViewController *)controller didFinishLoadData:(NSMutableArray *)loadedArray{  
+ 				self.currentArray = loadedArray;  
+ 			}  
+ 			```
+ 		
 ### Swift
 
 ### iOS
